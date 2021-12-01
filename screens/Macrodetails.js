@@ -6,7 +6,7 @@ export default function Macrodetails({route,navigation}){
     //const {value,goal} = route.params;
     const {mealplan,setMealplan} = useState('');
     useEffect(() => {
-        fetch('https://api.spoonacular.com/mealplanner/generate?timeFrame=week&apiKey=41f7bddd08b641fc8250022427f7a6cf&targetCalories=3000')
+        fetch('https://api.spoonacular.com/mealplanner/generate?timeFrame=week&apiKey=&targetCalories=3000')
           .then((response) => response.json())
           .then((json) => {
         setMealplan(json);
