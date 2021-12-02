@@ -56,15 +56,6 @@ export default function Macrodetails({route,navigation}){
                 }
             ): null}
         </Text>
-         {/* {mealplan.week.monday.meals.map((item)=>{
-             return(
-                 <ScrollView>
-             <Text style={{color: 'blue'}} onPress={() => Linking.openURL(item.sourceUrl)}>Title: {item.title}</Text>
-             <Text>Ready In: {item.readyInMinutes}</Text>
-                </ScrollView>
-                );
-         })} */}
-        {/* <Text>Calorie Total: {mealplan.week.monday.nutrients.calories}</Text> */}
         </ScrollView>
     );
 }
