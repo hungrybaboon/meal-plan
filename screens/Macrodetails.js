@@ -5,7 +5,7 @@ import Meal from "./Meal";
 import NutritionCard from "./NutritionCard";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 export default function Macrodetails({route,navigation}){
-    //const {value,goal} = route.params;
+    const {mealplan,goal} = route.params;
     const styles = StyleSheet.create({
         container: {
           flex: 1,
@@ -23,38 +23,27 @@ export default function Macrodetails({route,navigation}){
             fontWeight: "bold"
           }
       }); 
-    const [mealplan,setMealplan] = useState();
-    useEffect(() => {
-        fetch('https://api.spoonacular.com/mealplanner/generate?timeFrame=week&apiKey=0e5f3b97a15746b4b5d2b2d5ac294240&targetCalories=3000')
-          .then((response) => response.json())
-          .then((json) => {
-        setMealplan(json);
-        console.log(json);
-        })
-          .catch((error) => console.error(error));
-      }, []);
-
+      var today = new Date();
+      var day = today.getDay();
+      var daylist = ["sunday","monday","tuesday","wednesday ","thursday","friday","saturday"];
+      var tday = daylist[day];
+      const mealplan_now = mealplan.week[tday];
     return(
         <ScrollView style={styles.container}>
         <Text>Your caloric need is </Text>
         <Text>
-            {mealplan ? Object.entries(mealplan.week).map(
-                ([key, value]) => {
-                    return(
                         <ScrollView style={styles.scrollView}>
-                            <Text style={styles.titleText}>Day: {key}</Text>
-                            {mealplan.week[key].meals.map((item) => {
+                            <Text style={styles.titleText}>Meal plan for today is: {tday}</Text>
+                            {mealplan_now.meals.map((item) => {
                                 return (
                                     <ScrollView> 
                                         <Meal data={item} id={item.id}/>
                                     </ScrollView>
                                 );
                             })}
-                            <NutritionCard data={mealplan.week[key].nutrients}/>
+                            <NutritionCard data={mealplan_now.nutrients}/>
                             </ScrollView>
                     );
-                }
-            ): null}
         </Text>
         </ScrollView>
     );

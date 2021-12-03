@@ -14,7 +14,7 @@ export default function App() {
   const Stack = createNativeStackNavigator();
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Macrodetails">
+      <Stack.Navigator initialRouteName="TDEE Calculator">
       <Stack.Screen name="Register" component={Register}/>
         <Stack.Screen name="Login" component={Login}/>
         <Stack.Screen name="TDEE Calculator" component={Tdee}/>

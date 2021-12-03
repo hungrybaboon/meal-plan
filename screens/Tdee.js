@@ -78,8 +78,11 @@ export default function Tdee({navigation}) {
       let protein_calorie = weight * 4.0;
       let fat_gms = weight / 2.0;
       let carb_gms = (tdee-protein_calorie-fat_gms*9)/4.0;
+      let lose_value = tdee-0.2*tdee;
+      let gain_value = parseFloat(tdee)+300.0;
+      
       alert(`${tdee}`);
-      navigation.navigate('Bodygoals',{tdee:`${tdee}`,protein:`${weight}`,fat:`${fat_gms}`,carb:`${carb_gms}` })
+      navigation.navigate('Bodygoals',{tdee:`${tdee}`,protein:`${weight}`,fat:`${fat_gms}`,carb:`${carb_gms}`,lose:`${lose_value}`,gain:`${gain_value}` })
     } 
   });
   
