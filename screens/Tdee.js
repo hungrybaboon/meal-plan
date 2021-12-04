@@ -1,4 +1,4 @@
-import React,{ useState } from 'react';
+import React,{ useState,useCallback } from 'react';
 import { Text, View } from 'react-native';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
@@ -9,7 +9,7 @@ import DropDownPicker from 'react-native-dropdown-picker';
 
 export default function Tdee({navigation}) {
   const [open, setOpen] = useState(false);
-  
+
   const [activityvalue, setactivityValue] = useState(null);
   const [heightvalue, setHeightvalue] = useState(null);
   const [dactivity, setdActivity] = useState([
@@ -50,6 +50,30 @@ export default function Tdee({navigation}) {
   {value: 82, label:"6ft 10in"},
   {value: 83, label:"6ft 11in"},
   {value: 84, label:"7ft 0in"}]);
+  const [exclusionopen, setExclusionopen] = useState(false);
+  const [exclusionvalue, setExclusionvalue] = useState(null);
+  const [exclusion, setExclusion] = useState([
+    {label: 'Chicken', value:'Chicken'},
+    {label: 'Peanuts', value: 'Peanuts'},
+    {label: 'Beef', value: 'Beef'},
+    {label: 'Pork', value: 'Pork'},
+    {label: 'Vegetables', value:'Vegetables'}
+  ]);
+  const onExclusionOpen = useCallback(() => {
+    setOpen(false);
+    setheightOpen(false);
+  }, []);
+  const onHeightOpen = useCallback(() => {
+    setOpen(false);
+    setExclusionopen(false);
+  }, []);
+
+  const onActivityOpen = useCallback(() => {
+    setheightOpen(false);
+    setExclusionopen(false);
+  }, []);
+
+
   const TdeeSchema = Yup.object().shape({
     age: Yup.number()
     .required("Please supply your age")
@@ -70,19 +94,17 @@ export default function Tdee({navigation}) {
     touched
   } = useFormik({
     validationSchema: TdeeSchema,
-    initialValues: { age: '', height: '',weight:'',activity:''},
+    initialValues: { age: '', height: '',weight:'',activity:'',exclusion:''},
     
     onSubmit:values=>{
-      const {age, height, weight,activity} = values;
+      const {age, height, weight,activity,exclusion} = values;
       var tdee = activity*(66 + (13.7*weight*0.453592) + (5 *height*2.54)-(6.8*age));
       let protein_calorie = weight * 4.0;
       let fat_gms = weight / 2.0;
       let carb_gms = (tdee-protein_calorie-fat_gms*9)/4.0;
       let lose_value = tdee-0.2*tdee;
       let gain_value = parseFloat(tdee)+300.0;
-      
-      alert(`${tdee}`);
-      navigation.navigate('Bodygoals',{tdee:`${tdee}`,protein:`${weight}`,fat:`${fat_gms}`,carb:`${carb_gms}`,lose:`${lose_value}`,gain:`${gain_value}` })
+      navigation.navigate('Bodygoals',{tdee:`${tdee}`,protein:`${weight}`,fat:`${fat_gms}`,carb:`${carb_gms}`,lose:`${lose_value}`,gain:`${gain_value}`,exclusion:`${exclusion}` })
     } 
   });
   
@@ -136,6 +158,7 @@ export default function Tdee({navigation}) {
       }}
       dropDownStyle={{ backgroundColor: 'white' }}
       open={heightopen}
+      onOpen={onHeightOpen}
       value={heightvalue}
       items={height}
       setOpen={setheightOpen}
@@ -183,6 +206,7 @@ export default function Tdee({navigation}) {
       }}
       dropDownStyle={{ backgroundColor: 'white' }}
       open={open}
+      onOpen={onActivityOpen}
       value={activityvalue}
       items={dactivity}
       setOpen={setOpen}
@@ -193,6 +217,42 @@ export default function Tdee({navigation}) {
       }}
     />
     </View>
+    <View style={{ paddingHorizontal: 32, marginBottom: 16, width: '100%' }}>
+      <DropDownPicker
+      placeholder="Exclude Food"
+      zIndex={3000}
+    zIndexInverse={1000}
+      style={{
+        borderWidth: 2,
+        borderTopLeftRadius: 10,
+        borderTopRightRadius: 10,
+        borderBottomLeftRadius: 10,
+        borderBottomRightRadius: 10,
+        borderColor: 'lightgray',
+        shadowColor: '#000',
+        shadowOffset: {
+          width: 0,
+          height: 3,
+        },
+        shadowOpacity: 0.1,
+        shadowRadius: 0.41,
+      }}
+      dropDownStyle={{ backgroundColor: 'white' }}
+      open={exclusionopen}
+      onOpen={onExclusionOpen}
+      value={exclusionvalue}
+      items={exclusion}
+      setOpen={setExclusionopen}
+      setValue={setExclusionvalue}
+      setItems={setExclusion}
+      multiple={true}
+      min={0}
+      max={5}
+      onChangeValue={(value) => {
+        setFieldValue("exclusion",`${value}`);
+      }}
+    />
+      </View>
       <Button label='Submit' onPress={handleSubmit} />
     </View>
   );
