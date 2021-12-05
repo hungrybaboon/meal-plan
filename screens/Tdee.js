@@ -220,8 +220,8 @@ export default function Tdee({navigation}) {
     <View style={{ paddingHorizontal: 32, marginBottom: 16, width: '100%' }}>
       <DropDownPicker
       placeholder="Exclude Food"
-      zIndex={3000}
-    zIndexInverse={1000}
+      zIndex={1000}
+    zIndexInverse={3000}
       style={{
         borderWidth: 2,
         borderTopLeftRadius: 10,
