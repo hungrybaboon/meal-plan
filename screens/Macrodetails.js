@@ -5,7 +5,7 @@ import Meal from "./Meal";
 import NutritionCard from "./NutritionCard";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 export default function Macrodetails({route,navigation}){
-    const {mealplan,goal} = route.params;
+    const {mealplan,value} = route.params;
     const styles = StyleSheet.create({
         container: {
           flex: 1,
@@ -30,10 +30,10 @@ export default function Macrodetails({route,navigation}){
       const mealplan_now = mealplan.week[tday];
     return(
         <ScrollView style={styles.container}>
-        <Text>Your caloric need is </Text>
+        <Text>Your caloric need is {value}</Text>
         <Text>
                         <ScrollView style={styles.scrollView}>
-                            <Text style={styles.titleText}>Meal plan for today is: {tday}</Text>
+                            <Text style={styles.titleText}>Meal plan for {tday} is: </Text>
                             {mealplan_now.meals.map((item) => {
                                 return (
                                     <ScrollView> 

@@ -8,8 +8,8 @@ export default function Meal({data}) {
     <Card style={styles.cardbox}>
     <Card.Content>
     <Text style={{color: 'blue'}} onPress={() => Linking.openURL(sourceUrl)}>{title}</Text>
-        <Text>Cooking Time:{readyInMinutes}</Text>
-        <Text>Amount of Servings:{servings}</Text>
+        <Text>Cooking Time:{readyInMinutes} minutes</Text>
+        <Text>Amount of Servings:{servings} servings</Text>
     </Card.Content>
   </Card>
   );
