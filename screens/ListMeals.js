@@ -10,8 +10,8 @@ export default function ListMeals({route,navigation}){
       var daylist = ["sunday","monday","tuesday","wednesday ","thursday","friday","saturday"];
       var tday = daylist[day];
       const mealplan_now = mealplan.week[tday];
-    const [mealexpanded,setMealexpanded] = useState(false); 
-    const [workoutexpanded,setWorkoutexpanded] = useState(false); 
+    const [mealexpanded,setMealexpanded] = useState(false);
+    const [workoutexpanded,setWorkoutexpanded] = useState(false);
     return(
         <View>
     <ListItem.Accordion
@@ -33,7 +33,7 @@ export default function ListMeals({route,navigation}){
       <ListItem.Content>
         <ListItem.Title style={{color: 'blue'}} onPress={() => Linking.openURL(item.sourceUrl)}>{item.title}</ListItem.Title>
         <ListItem.Subtitle>Cooking Time:{item.readyInMinutes} minutes</ListItem.Subtitle>
-        <ListItem.Subtitle>Amount of Servings:{item.servings} servings</ListItem.Subtitle>  
+        <ListItem.Subtitle>Amount of Servings:{item.servings} servings</ListItem.Subtitle>
       </ListItem.Content>
       <ListItem.Chevron />
     </ListItem>
@@ -106,7 +106,7 @@ export default function ListMeals({route,navigation}){
       </ListItem.Content>
       <ListItem.Chevron />
     </ListItem>
-    <ListItem key={4}  bottomDivider>
+    <ListItem key={5}  bottomDivider>
       <ListItem.Content>
         <ListItem.Title style={{color: 'blue'}} onPress={()=>{
                 fetch(`https://wger.de/api/v2/exercise/?language=2&limit=200&muscles=2,9`)
@@ -119,7 +119,7 @@ export default function ListMeals({route,navigation}){
       </ListItem.Content>
       <ListItem.Chevron />
     </ListItem>
-    <ListItem key={5}  bottomDivider>
+    <ListItem key={6}  bottomDivider>
       <ListItem.Content>
         <ListItem.Title style={{color: 'blue'}} onPress={()=>{
                 fetch(`https://wger.de/api/v2/exercise/?language=2&limit=200&muscles=2,4,5,9`)
@@ -132,7 +132,7 @@ export default function ListMeals({route,navigation}){
       </ListItem.Content>
       <ListItem.Chevron />
     </ListItem>
-    <ListItem key={6}  bottomDivider>
+    <ListItem key={7}  bottomDivider>
       <ListItem.Content>
         <ListItem.Title style={{color: 'blue'}} onPress={()=>{
                 fetch(`https://wger.de/api/v2/exercise/?language=2&limit=200&muscles=1,12,13`)
@@ -146,7 +146,6 @@ export default function ListMeals({route,navigation}){
       <ListItem.Chevron />
     </ListItem>
 </ListItem.Accordion>
-</View> 
+</View>
 );
 }
-
