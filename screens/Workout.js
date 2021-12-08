@@ -3,7 +3,6 @@ import React,{useState,useEffect} from "react";
 import { ScrollView,Text, Linking, StyleSheet } from "react-native";
 import {Card} from 'react-native-paper';
 import WorkoutCard from "./WorkoutCard";
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Workoutdetails({route,navigation}){
   const { title, workout } = route.params;
