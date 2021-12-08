@@ -1,19 +1,21 @@
 import React,{ useState } from 'react';
-import { ListItem, Avatar,Icon } from 'react-native-elements'
+import { ListItem, Avatar,Icon,LinearProgress  } from 'react-native-elements'
 import { Button } from 'react-native-elements';
-import { View,Linking} from "react-native";
+import {ActivityIndicator,View,Linking} from "react-native";
 import NutritionCard from './NutritionCard';
 export default function ListMeals({route,navigation}){
     const {mealplan,value} = route.params;
+    const [isLoading,setIsloading] = useState(false);
     var today = new Date();
       var day = today.getDay();
       var daylist = ["sunday","monday","tuesday","wednesday ","thursday","friday","saturday"];
       var tday = daylist[day];
       const mealplan_now = mealplan.week[tday];
-    const [mealexpanded,setMealexpanded] = useState(false);
+    const [mealexpanded,setMealexpanded] = useState(true);
     const [workoutexpanded,setWorkoutexpanded] = useState(false);
     return(
         <View>
+        {isLoading && <LinearProgress color={"#0000ff"}/>}
     <ListItem.Accordion
   content={
     <>
@@ -32,8 +34,8 @@ export default function ListMeals({route,navigation}){
     <ListItem key={item.id}  bottomDivider>
       <ListItem.Content>
         <ListItem.Title style={{color: 'blue'}} onPress={() => Linking.openURL(item.sourceUrl)}>{item.title}</ListItem.Title>
-        <ListItem.Subtitle>Cooking Time:{item.readyInMinutes} minutes</ListItem.Subtitle>
-        <ListItem.Subtitle>Amount of Servings:{item.servings} servings</ListItem.Subtitle>
+        <ListItem.Subtitle>Cooking Time: {item.readyInMinutes} minutes</ListItem.Subtitle>
+        <ListItem.Subtitle>Amount of Servings: {item.servings} servings</ListItem.Subtitle>
       </ListItem.Content>
       <ListItem.Chevron />
     </ListItem>
@@ -57,9 +59,11 @@ export default function ListMeals({route,navigation}){
     <ListItem key={1}  bottomDivider>
       <ListItem.Content>
         <ListItem.Title style={{color: 'blue'}} onPress={()=>{
+          setIsloading(true);
                 fetch(`https://wger.de/api/v2/exercise/?language=2&limit=200&muscles=1,5,13`)
                 .then((response) => response.json())
                 .then((json) => {
+                  setIsloading(false);
                 navigation.navigate('Workout',{title: 'Arms', workout:json});
                 })
                 .catch((error) => console.error(error));
@@ -70,9 +74,11 @@ export default function ListMeals({route,navigation}){
     <ListItem key={2}  bottomDivider>
       <ListItem.Content>
         <ListItem.Title style={{color: 'blue'}} onPress={()=>{
+          setIsloading(true);
                 fetch(`https://wger.de/api/v2/exercise/?language=2&limit=200&muscles=7,8,10,11,15`)
                 .then((response) => response.json())
                 .then((json) => {
+                  setIsloading(false);
                 navigation.navigate('Workout',{title: 'Legs', workout:json});
                 })
                 .catch((error) => console.error(error));
@@ -83,9 +89,11 @@ export default function ListMeals({route,navigation}){
     <ListItem key={3}  bottomDivider>
       <ListItem.Content>
         <ListItem.Title style={{color: 'blue'}} onPress={()=>{
+                setIsloading(true);
                 fetch(`https://wger.de/api/v2/exercise/?language=2&limit=200&muscles=4`)
                 .then((response) => response.json())
                 .then((json) => {
+                setIsloading(false);
                 navigation.navigate('Workout',{title: 'Chest', workout:json});
                 })
                 .catch((error) => console.error(error));
@@ -96,9 +104,11 @@ export default function ListMeals({route,navigation}){
     <ListItem key={4}  bottomDivider>
       <ListItem.Content>
         <ListItem.Title style={{color: 'blue'}} onPress={()=>{
+          setIsloading(true);
                 fetch(`https://wger.de/api/v2/exercise/?language=2&limit=200&muscles=12`)
                 .then((response) => response.json())
                 .then((json) => {
+                  setIsloading(false);
                 navigation.navigate('Workout',{title: 'Back', workout:json});
                 })
                 .catch((error) => console.error(error));
@@ -109,9 +119,11 @@ export default function ListMeals({route,navigation}){
     <ListItem key={5}  bottomDivider>
       <ListItem.Content>
         <ListItem.Title style={{color: 'blue'}} onPress={()=>{
+                setIsloading(true);
                 fetch(`https://wger.de/api/v2/exercise/?language=2&limit=200&muscles=2,9`)
                 .then((response) => response.json())
                 .then((json) => {
+                  setIsloading(false);
                 navigation.navigate('Workout',{title: 'Shoulder', workout:json});
                 })
                 .catch((error) => console.error(error));
@@ -122,9 +134,11 @@ export default function ListMeals({route,navigation}){
     <ListItem key={6}  bottomDivider>
       <ListItem.Content>
         <ListItem.Title style={{color: 'blue'}} onPress={()=>{
+                setIsloading(true);
                 fetch(`https://wger.de/api/v2/exercise/?language=2&limit=200&muscles=2,4,5,9`)
                 .then((response) => response.json())
                 .then((json) => {
+                  setIsloading(false);
                 navigation.navigate('Workout',{title: 'Tri/Chest/Shoulder', workout:json});
                 })
                 .catch((error) => console.error(error));
@@ -135,9 +149,11 @@ export default function ListMeals({route,navigation}){
     <ListItem key={7}  bottomDivider>
       <ListItem.Content>
         <ListItem.Title style={{color: 'blue'}} onPress={()=>{
+          setIsloading(true);
                 fetch(`https://wger.de/api/v2/exercise/?language=2&limit=200&muscles=1,12,13`)
                 .then((response) => response.json())
                 .then((json) => {
+                  setIsloading(false);
                 navigation.navigate('Workout',{title: 'Back/Bi', workout:json});
                 })
                 .catch((error) => console.error(error));
