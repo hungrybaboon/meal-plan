@@ -1,12 +1,11 @@
 import Button from "../components/Button";
 import React,{useState,useEffect} from "react";
 import { ScrollView,Text, Linking, StyleSheet } from "react-native";
-import {Card} from 'react-native-paper';
+import {Card,LinearProgress} from 'react-native-paper';
 import WorkoutCard from "./WorkoutCard";
 
 export default function Workoutdetails({route,navigation}){
   const { title, workout } = route.params;
-    console.log(`navigation from workout is ${navigation}`)
   const styles = StyleSheet.create({
     container: {
       flex: 1,

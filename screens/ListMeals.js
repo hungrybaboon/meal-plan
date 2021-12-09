@@ -8,9 +8,9 @@ export default function ListMeals({route,navigation}){
     const [isLoading,setIsloading] = useState(false);
     var today = new Date();
       var day = today.getDay();
-      var daylist = ["sunday","monday","tuesday","wednesday ","thursday","friday","saturday"];
+      var daylist = ["sunday","monday","tuesday","wednesday","thursday","friday","saturday"];
       var tday = daylist[day];
-      const mealplan_now = mealplan.week[tday];
+      const [mealplan_now,setIsMealplan_now] = useState(mealplan.week[tday]);
     const [mealexpanded,setMealexpanded] = useState(true);
     const [workoutexpanded,setWorkoutexpanded] = useState(false);
     return(
@@ -41,7 +41,25 @@ export default function ListMeals({route,navigation}){
     </ListItem>
   ))}
   <NutritionCard data={mealplan_now.nutrients}/>
+  <Button raised buttonStyle={{borderRadius: 8,
+  justifyContent: 'center',
+  alignItems: 'center',
+  backgroundColor: '#0000ff',
+  margin: 5}}
+    title="Reset Meals"
+    onPress={ ()=>{
+      setIsloading(true);
+        fetch(`https://api.spoonacular.com/mealplanner/generate?timeFrame=week&apiKey=0e5f3b97a15746b4b5d2b2d5ac294240&targetCalories=${value}`)
+        .then((response) => response.json())
+        .then((json) => {
+          setIsloading(false);
+        setIsMealplan_now(json.week[tday]);
+        })
+        .catch((error) => console.error(error));
+    }}
+  />
 </ListItem.Accordion>
+
 <ListItem.Accordion
   content={
     <>

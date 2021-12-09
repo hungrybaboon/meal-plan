@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet } from 'react-native';
-import {Card, Text} from 'react-native-paper';
+import {Card, Text,LinearProgress} from 'react-native-paper';
 import YoutubePlayer from 'react-native-youtube-iframe';
 
 const apiKey = 'AIzaSyBflP8KrphCHrNBzO_Vtn-yDeIzwCGmiys'
 
 export default function WorkoutCard({data, navigation,wid}) {
   const {name, description}=data;
+
   return (
     <Card id={wid} key={wid} style={styles.cardbox} onPress={() => {
-        console.log("pressed\n");
       fetch(`https://www.googleapis.com/youtube/v3/search?key=${apiKey}&q=how+to+${name.split(' ').join('+')}`)
       .then(response => response.json())
       .then(json => {

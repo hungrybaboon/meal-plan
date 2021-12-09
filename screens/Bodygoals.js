@@ -19,7 +19,7 @@ export default function BodyGoals({route,navigation}){
                 fetch(`https://api.spoonacular.com/mealplanner/generate?timeFrame=week&apiKey=0e5f3b97a15746b4b5d2b2d5ac294240&targetCalories=${lose}`)
                 .then((response) => response.json())
                 .then((json) => {
-                  setIsloading(true);
+                  setIsloading(false);
                 navigation.navigate('ListMeals', {value:`${lose}`,mealplan:json});
                 })
                 .catch((error) => console.error(error));
